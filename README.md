@@ -47,15 +47,15 @@ Currently, I'm either editing the parcels file to have column names matching the
 
 **_Output:_** For each input .csv of parcels that was specified, an output .csv file is generated (with the same name as the input file, plus "\_out" at the end) which has the above columns plus the following additional columns showing how each parcel was classified based on the parcel and owner addresses.  The script also writes a "summary.csv" file in which each row displays how many parcels from each input file fell into each of these categories as well as the total number of parcels.  
 
-| Column Name  | Format | Description |
-| ------------- | ------------- | ------- |
-| "oo"  | 0 or 1 | owner-occupied |
-| "ia"  | 0 or 1 | owned in-area |
-| "oa"  | 0 or 1 | owned out-of-area |
-| "po"  | 0 or 1 | owner address is a PO Box |
-| "xi" | 0 or 1 | owner address blank/missing |
-| "xf" | 0 or 1 | owner address not found |
-| OWNER_AREA  | any | the name of the tract or neighborhood containing the owner's address |
+| Column Name  | Format | Category Name | Category Meaning |
+| ------------- | ------------- | ------- | ------ |
+| "oo"  | 0 or 1 | owner-occupied | parcel address matches owner address |
+| "ia"  | 0 or 1 | in-area | owner address is within the study area |
+| "oa"  | 0 or 1 | out-of-area | owner address is outside the study area |
+| "po"  | 0 or 1 | PO Box | owner address is a PO Box |
+| "xi" | 0 or 1 | no info | owner address is blank or missing |
+| "xf" | 0 or 1 | not found | owner address is in the study area, but couldn't be matched to a parcel address |
+| OWNER_AREA  | any |  | the name of the tract or neighborhood containing the owner's address |
 
 Each parcel is categorized into exactly one of those 6 classifications. OWNER_AREA is only generated for parcels classified as "ia".  
 
