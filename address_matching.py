@@ -1,5 +1,11 @@
 import pandas as pd
 
+# specify files to run and city name here
+files_to_run = ['joined_centroids_2016.csv']
+area_name = 'Providence'
+# for yr in range(2002, 2022):
+#     files_to_run.append('tax_rolls/' + str(yr) + "_Property_Tax_Roll.csv")
+
 # names of relevant input columns
 parc_add = 'P_ADDR'
 own_add = 'O_ADDR'
@@ -339,12 +345,6 @@ def match_addresses(file_name: str, area_name: str) -> list:
 
 
 # ------------------- READY TO RUMBLE ------------------------
-files_to_run = ['joined_centroids_2016.csv']
-area_name = 'Providence'
-
-# for yr in range(2002, 2022):
-#     files_to_run.append('tax_rolls/' + str(yr) + "_Property_Tax_Roll.csv")
-
 for file in files_to_run:
     print("Processing " + file + "...")
     summary_table.append(match_addresses(file, area_name))
