@@ -17,12 +17,11 @@ import processing
 class Centroids(QgsProcessingAlgorithm):
 
     def initAlgorithm(self, config=None):
-        self.addParameter(QgsProcessingParameterField('identifier', 'Tract Identifier', type=QgsProcessingParameterField.Any, parentLayerParameterName='polygons', allowMultiple=False, defaultValue=None))
-        self.addParameter(QgsProcessingParameterField('owneraddress', 'Owner Address', type=QgsProcessingParameterField.Any, parentLayerParameterName='parcels', allowMultiple=False, defaultValue=None))
-        self.addParameter(QgsProcessingParameterField('parceladdress', 'Parcel Address', type=QgsProcessingParameterField.Any, parentLayerParameterName='parcels', allowMultiple=False, defaultValue=None))
         self.addParameter(QgsProcessingParameterVectorLayer('parcels', 'Parcels', types=[QgsProcessing.TypeVectorPolygon], defaultValue=None))
-        self.addParameter(QgsProcessingParameterVectorLayer('polygons', 'Polygons', types=[QgsProcessing.TypeVectorPolygon], defaultValue=None))
-        self.addParameter(QgsProcessingParameterField('usetype', 'Use Type', type=QgsProcessingParameterField.Any, parentLayerParameterName='parcels', allowMultiple=True, defaultValue=None))
+        self.addParameter(QgsProcessingParameterField('parceladdress', 'Parcel Address', type=QgsProcessingParameterField.Any, parentLayerParameterName='parcels', allowMultiple=False, defaultValue=None))
+        self.addParameter(QgsProcessingParameterField('owneraddress', 'Owner Address', type=QgsProcessingParameterField.Any, parentLayerParameterName='parcels', allowMultiple=False, defaultValue=None))
+        self.addParameter(QgsProcessingParameterVectorLayer('polygons', 'Neighborhoods', types=[QgsProcessing.TypeVectorPolygon], defaultValue=None))
+        self.addParameter(QgsProcessingParameterField('identifier', 'Neighborhood Identifier', type=QgsProcessingParameterField.Any, parentLayerParameterName='polygons', allowMultiple=False, defaultValue=None))
         self.addParameter(QgsProcessingParameterFeatureSink('Joined_centroids', 'joined_centroids', optional=True, type=QgsProcessing.TypeVectorAnyGeometry, createByDefault=True, defaultValue=None))
 
     def processAlgorithm(self, parameters, context, model_feedback):
