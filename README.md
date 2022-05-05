@@ -1,4 +1,4 @@
-## Property ownership patterns: an address-matching approach
+## Urban property ownership patterns: an address-matching approach
 #### Ethan McIntosh, May 2022
 
 This project is an exploration of how parcel data can be used to analyze fine-grained property ownership patterns in urban settings.  I introduce a script-based address-matching workflow which categorizes parcels by their owner addresses, and show examples of how this workflow can allow for the analysis and visualization of owner occupancy rates and landlord locations at fine spatial and temporal scales.  
