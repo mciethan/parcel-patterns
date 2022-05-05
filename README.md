@@ -20,16 +20,20 @@ However, parcel data is produced by local governments, meaning that the quality 
 
 Project description - start from parcels polygons and attributes, plus tracts or neighborhood geometries, end with parcel ownership classifications (explain the 6) and related visualizations.
 
-At the core of this workflow is the address matching process contained in address_matching.py.  Input is a csv of parcels (either exported from a vector layer or downloaded in tabular format) with the following columns:
+At the core of this workflow is the address matching process contained in address_matching.py.  
 
-| Column Header  | Description | Format | Examples |
-| ------------- | ------------- | ------- | ------- |
-| PROPID  | parcel/property ID  | any, but must be unique | 
-| P_ADDR  | parcel address | address | "12 Main St", "12 Main Unit 5A", "12-15A Main St" |
-| O_ADDR  | owner address  | address | "12 Main St", "PO Box 1612", "12-15A Main St Bldg 2" |
-| O_CITY  | owner address city  | city name | "Providence", "PROVIDENCE", "New York City" |
-| O_STATE  | owner address state  | two-character US state abbreviation | "RI", "NY", "MA" |
-| NAMELSAD  | tract/neighborhood name  | any | "Census Tract 36.01", "Fox Point" |
+**_Input:_** a .csv file where each row represents a parcel (either exported from a vector layer or downloaded in tabular format), with at least the following columns of information included:
+
+| Variable Name | Column Name  | Description | Format | Examples |
+| ------------- | ------------- | ------------- | ------- | ------- |
+| propid | "PROPID"  | parcel/property ID  | any, but must be unique | 27983, 1612, "0001-23-456"
+| parc_add | "P_ADDR"  | parcel address | address | "12 Main St", "12 Main Unit 5A", "12-15A Main St" |
+| own_add | "O_ADDR"  | owner address  | address | "12 Main St", "PO Box 1612", "12-15A Main St Bldg 2" |
+| own_city | "O_CITY"  | owner address city  | city name | "Providence", "PROVIDENCE", "New York City" |
+| own_st | "O_STATE"  | owner address state  | two-character US state abbreviation | "RI", "NY", "MA" |
+| tract_name | "NAMELSAD"  | tract/neighborhood name  | any | "Census Tract 36.01", "Fox Point" |
+
+Currently, the parcels file either has to be saved with column names matching the ones listed above, or the script has to be edited so that the column names assigned to the above variable names match the names of the columns in the parcels file.  
 
 1) joined centroids.  built in QGIS graphical modeler, shared here as a QGIS processing script exported directly from the graphical modeler.  Input is the parcels polygon layer and the areas polygon layer, output is the parcels as a point layer with an extra attribute: the name of the area within which it's contained.  
 
