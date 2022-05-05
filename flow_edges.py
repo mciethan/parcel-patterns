@@ -40,4 +40,4 @@ for r in range(num_tracts):
     for c in range(num_tracts):
         out_list.append([t_name[r], t_name[c], ownership_array[r][c]])
 out_df = pd.DataFrame(out_list, columns=['parcel_tract', 'owner_tract', 'count'])
-out_df.dropna().to_csv('flow_edges_2016.csv', index=False)
+out_df.dropna().to_csv('flow_edges.csv', index=False)
