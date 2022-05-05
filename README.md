@@ -18,7 +18,20 @@ However, parcel data is produced by local governments, meaning that the quality 
 
 ### Data Inputs and Outputs
 
-Project description - start from parcels polygons and attributes, plus tracts or neighborhood geometries, end with parcel ownership classifications (explain the 6) and related visualizations.  
+Project description - start from parcels polygons and attributes, plus tracts or neighborhood geometries, end with parcel ownership classifications (explain the 6) and related visualizations.
+
+At the core of this workflow is the address matching process contained in address_matching.py.  Input is a csv of parcels (either exported from a vector layer or downloaded in tabular format) with the following columns:
+
+| Column Header  | Description | Format | Examples |
+| ------------- | ------------- | ------- | ------- |
+| PROPID  | parcel/property ID  | any, but must be unique | 
+| P_ADDR  | parcel address | address | "12 Main St", "12 Main Unit 5A", "12-15A Main St" |
+| O_ADDR  | owner address  | address | "12 Main St", "PO Box 1612", "12-15A Main St Bldg 2" |
+| O_CITY  | owner address city  | city name | "Providence", "PROVIDENCE", "New York City" |
+| O_STATE  | owner address state  | two-character US state abbreviation | "RI", "NY", "MA" |
+| NAMELSAD  | tract/neighborhood name  | any | "Census Tract 36.01", "Fox Point" |
+
+1) joined centroids.  built in QGIS graphical modeler, shared here as a QGIS processing script exported directly from the graphical modeler.  Input is the parcels polygon layer and the areas polygon layer, output is the parcels as a point layer with an extra attribute: the name of the area within which it's contained.  
 
 Code descriptions of the four parts and how to run them (inputs, outputs, links between them)
 
