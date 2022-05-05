@@ -14,11 +14,11 @@ My project is meant to explore the possibility of using property parcel data pro
 
 However, parcel data varies meaningfully in quality and detail between cities and over time.  Therefore, the question with this project is not whether parcel data can provide finer-grained data than the census for a particular snapshot in time (it can), but rather, whether we can derive information about property ownership from parcel data that can be reasonably compared over space or time, the way we are able to do with census data.  
 
-The following workflow derives the info from address matching, not geocoding.  it's an initial attempt, rough around the edges, functional but in active development.  
+In my initial exploration of parcel ownership patterns in Providence, RI, I was able to generate a script-based address-matching workflow to classify parcels into a series of ownership categories that I believe has potential to be applied to parcel data from other cities and from various times.  
 
-### Data Inputs and Outputs
+The following section documents the steps of my workflow, including pre-processing steps I took in order to prepare my data before running the scripts in this repository.  This workflow is functional and reproducible, but also rough around the edges, and in active development.  In future versions of this project, I aim to (a) reduce the number of preprocessing steps that must be performed manually, and (b) consolidate my workflow so that all data processing is performed in a single Python script or package, rather than requiring users to switch back and forth between QGIS processing scripts and standalone Python scripts.
 
-Project description - start from parcels polygons and attributes, plus tracts or neighborhood geometries, end with parcel ownership classifications (explain the 6) and related visualizations.
+### Workflow Steps
 
 #### 1) joined_centroids_qgis.py
 
@@ -45,19 +45,21 @@ Each parcels .csv to be processed must have at least the following columns:
 
 Currently, I'm either editing the parcels file to have column names matching the ones listed above, or editing the script so that the column names assigned to the above variable names match whatever those columns are names in my parcels file(s).  
 
-**_Output:_** For each input .csv of parcels that was specified, an output .csv file is generated (with the same name as the input file, plus "\_out" at the end) which has the above columns plus the following additional columns showing how each parcel was classified based on the parcel and owner addresses.  The script also writes a "summary.csv" file in which each row displays how many parcels from each input file fell into each of these categories.
+**_Output:_** For each input .csv of parcels that was specified, an output .csv file is generated (with the same name as the input file, plus "\_out" at the end) which has the above columns plus the following additional columns showing how each parcel was classified based on the parcel and owner addresses.  The script also writes a "summary.csv" file in which each row displays how many parcels from each input file fell into each of these categories as well as the total number of parcels.  
 
 | Column Name  | Format | Description |
 | ------------- | ------------- | ------- |
-| oo  | 0 or 1 | owner-occupied |
-| ia  | 0 or 1 | owned in-area |
-| oa  | 0 or 1 | owned out-of-area |
-| po  | 0 or 1 | owner address is a PO Box |
-| xi  | 0 or 1 | owner address blank/missing |
-| xf  | 0 or 1 | owner address not found |
+| "oo"  | 0 or 1 | owner-occupied |
+| "ia"  | 0 or 1 | owned in-area |
+| "oa"  | 0 or 1 | owned out-of-area |
+| "po"  | 0 or 1 | owner address is a PO Box |
+| "xi" | 0 or 1 | owner address blank/missing |
+| "xf" | 0 or 1 | owner address not found |
 | OWNER_AREA  | any | the name of the tract or neighborhood containing the owner's address |
 
 Each parcel is categorized into exactly one of those 6 classifications. OWNER_AREA is only generated for parcels classified as "ia".  
+
+The numbers in the summary.csv file can be used to calculate a "match rate" ( (total - xf)/total * 100 ) showing how well the address matching algorithm did.  My initial tests using recent parcel data from Providence, RI had match rates greater than 95%, but the algorithm will undoubtedly need to be tested on older data and data from other cities before being able to achieve those kinds of match rates in a more generalized way.
 
 #### 3) count_parcels_in_tracts_qgis.py
 
@@ -67,13 +69,13 @@ Each parcel is categorized into exactly one of those 6 classifications. OWNER_AR
 
 | Column Name  | Format | Description |
 | ------------- | ------------- | ------- |
-| oo_count  | integer | number of total parcels |
-| oo_sum  | integer | number of owner-occupied parcels |
-| ia_sum  | integer | number of parcels owned in-area |
-| oa_sum  | integer | number of parcels owned out-of-area |
-| po_sum  | integer | number of PO Box owner addresses |
-| xi_sum  | integer | number of blank/missing owner addresses |
-| xf_sum  | integer | number of owner addresses not found |
+| "oo_count"  | integer | number of total parcels |
+| "oo_sum" | integer | number of owner-occupied parcels |
+| "ia_sum" | integer | number of parcels owned in-area |
+| "oa_sum" | integer | number of parcels owned out-of-area |
+| "po_sum" | integer | number of PO Box owner addresses |
+| "xi_sum" | integer | number of blank/missing owner addresses |
+| "xf_sum" | integer | number of owner addresses not found |
 
 Using these columns, I used the field calculator in QGIS to add additionl fields of interest, like % owner occupied (oo_sum/oo_count * 100) and % owned out-of-area (oa_sum/oo_count * 100).  Any of these columns can be used for choropleth maps comparing property ownership patterns across various tracts or neighborhoods.
 
@@ -136,7 +138,3 @@ or
 ```
 
 For each arrow, the starting point represents the tract or neighborhood of the parcel addresses, the end point represents the addresses of the landlords of those parcels, and the width is proportional to how many parcels in the starting tract/neighborhood are owned in the ending tract/neighborhood.  The direction of the arrows can be thought of as the direction of some amount of rental income.
-
-### Future Versions
-
-I am aiming to consolidate this workflow so that all data processing is performed in a single Python script or package, using Python geospatial libraries and 
