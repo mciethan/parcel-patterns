@@ -3,22 +3,12 @@
 
 This project is an exploration of how parcel data can be used to analyze fine-grained property ownership patterns in urban settings.  I introduce a script-based address-matching workflow which categorizes parcels by their owner addresses, and show examples of how this workflow can allow for the analysis and visualization of owner occupancy rates and landlord locations at fine spatial and temporal scales.  
 
+Read the full project paper here: https://drive.google.com/file/d/1iNafoDogle7K_C7DIjo9AOAS2rO_cbuW/view?usp=sharing
+
 ### Tags
 Parcel, cadastral, property, ownership, homeownership, owner-occupied, housing density, gentrification, landlord, urban, address-matching, flow maps, QGIS, graphical modeler, scripting, open-source, Python
 
-### Background and Rationale
-
-Many studies that examine property ownership from the standpoint of population studies rely almost exclusively on census data.  However, there's usually a delay of several years between when census data is collected and when it's released, and it also has limited spatial resolution.  
-
-My project is meant to explore the possibility of using property parcel data produced by local tax assessors (which is increasingly available in digital formats) to derive a subset of property ownership characteristics like owner occupancy rates and landlord locations that could be used in population studies research having to do with homeownership, gentrification, or other topics related to property ownership.  Parcel data is released more frequently than census data, and because data are reported at the level of individual buildings or units, it lends itself well to analyses over small and/or nonstandard geographic areas.
-
-However, parcel data varies meaningfully in quality and detail between cities and over time.  Therefore, the question with this project is not whether parcel data can provide finer-grained data than the census for a particular snapshot in time (it can), but rather, whether we can derive information about property ownership from parcel data that can be reasonably compared over space or time, the way we are able to do with census data.  
-
-In my initial exploration of parcel ownership patterns in Providence, RI, I was able to generate a script-based address-matching workflow to classify parcels into a series of ownership categories that I believe has potential to be applied to parcel data from other cities and from various times.  
-
-The following section documents the steps of my workflow, including pre-processing steps I took in order to prepare my data before running the scripts in this repository.  This workflow is functional and reproducible, but also rough around the edges, and in active development.  In future versions of this project, I aim to (a) reduce the number of preprocessing steps that must be performed manually, and (b) consolidate my workflow so that all data processing is performed in a single Python script or package, rather than requiring users to switch back and forth between QGIS processing scripts and standalone Python scripts.
-
-### Workflow Steps
+### How to Run this Code
 
 #### 1) joined_centroids_qgis.py
 
