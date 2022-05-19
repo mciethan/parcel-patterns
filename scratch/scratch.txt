@@ -1,0 +1,20 @@
+Game plan for making this a single package / set of standalone scripts
+
+Specify a parcels shapefile, a corresponding assessor table, the parcel IDs and parcel and
+owner addresses, the tracts shapefile, and the tract identifier.  This seems like
+too much for command line arguments, but could maybe be arguments to a method. 
+
+Join the assessor table to the parcels shapefile.  Print out how many of the table 
+records were joined.
+
+After the parcel join, generate the parcel centroids and spatial join to get each 
+parcel's containing tract as an attribute of those centroids.  Print how many of
+the parcel centroid were successfully spatial joined.
+
+Run the centroids table through address matching so it gets classified. Join the 
+classified table back up with the centroids geometries, if necessary.  
+
+Do the tract joins stuff to count the numbers of parcels per classification in each
+neighborhood and write that to a csv.
+
+Also do the flow edges stuff, counting tract-to-tract ownership patterns.

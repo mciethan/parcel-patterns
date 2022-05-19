@@ -1,11 +1,5 @@
 import pandas as pd
 
-# specify files to run and city name here
-files_to_run = ['joined_centroids_2016.csv']
-area_name = 'Providence'
-# for yr in range(2002, 2022):
-#     files_to_run.append('tax_rolls/' + str(yr) + "_Property_Tax_Roll.csv")
-
 # names of relevant input columns
 parc_add = 'P_ADDR'
 own_add = 'O_ADDR'
@@ -15,7 +9,7 @@ tract_name = 'NAMELSAD'
 propid = 'PROPID'
 
 # other global variables and constants
-cols = [parc_add, own_add, own_city, own_st, tract_name, propid]
+in_cols = [parc_add, own_add, own_city, own_st, tract_name, propid, 'USETYPE']
 summary_table = [['file_name', 'num_parcels', 'matches', 'fuzzy', 'blanks',
                   'po_box', 'out_of_area', 'unmatched_prov']]
 ABBRS = {'ST': 'STREET', 'AVE': 'AVENUE', 'RD': 'ROAD', 'PL': 'PLACE',
@@ -273,10 +267,11 @@ def match_addresses(file_name: str, area_name: str) -> list:
     owner_not_found = 'xf'
 
     # reads in selected columns, fills null values, upper-cases everything
-    prov = pd.read_csv(file_name)[cols].fillna('').applymap(lambda s: s.upper())
+    prov = pd.read_csv(file_name)[in_cols].fillna('').applymap(lambda s:
+                                                             s.upper())
 
     # initialize some blank columns for keeping track of things
-    prov['OWNER_AREA'] = ''
+    prov[['O_AREA', 'O_PROPID']] = ''
     prov[[owner_occd, owned_in_area, owned_out_area, owned_po_box,
           owner_no_info, owner_not_found]] = 0
 
@@ -326,15 +321,16 @@ def match_addresses(file_name: str, area_name: str) -> list:
             match_id, mode = get_match(address_dict, alternate_addresses, pid)
             if mode == 'exact':
                 matches += 1
+                prov.at[i, 'O_PROPID'] = match_id
                 if match_id == pid:  # address prop ID equal to owner prop ID
                     prov.at[i, owner_occd] = 1
                 else:
                     prov.at[i, owned_in_area] = 1
-                    prov.at[i, 'OWNER_AREA'] = prop_info[match_id]
+                    prov.at[i, 'O_AREA'] = prop_info[match_id]
             elif mode == 'fuzzy':
                 fuzzy_matches += 1
                 prov.at[i, owned_in_area] = 1
-                prov.at[i, 'OWNER_AREA'] = prop_info[match_id]
+                prov.at[i, 'O_AREA'] = prop_info[match_id]
             else:  # no match
                 unmatched_prov += 1
                 prov.at[i, owner_not_found] = 1
@@ -345,6 +341,12 @@ def match_addresses(file_name: str, area_name: str) -> list:
 
 
 # ------------------- READY TO RUMBLE ------------------------
+files_to_run = ['parcels_2016.csv']
+area_name = 'Providence'
+
+# for yr in range(2002, 2022):
+#     files_to_run.append('tax_rolls/' + str(yr) + "_Property_Tax_Roll.csv")
+
 for file in files_to_run:
     print("Processing " + file + "...")
     summary_table.append(match_addresses(file, area_name))

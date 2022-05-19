@@ -45,9 +45,10 @@ Currently, I'm either editing the parcels file to have column names matching the
 | "po"  | 0 or 1 | PO Box | owner address is a PO Box |
 | "xi" | 0 or 1 | no info | owner address is blank or missing |
 | "xf" | 0 or 1 | not found | owner address is in the study area, but couldn't be matched to a parcel address |
-| OWNER_AREA  | any |  | the name of the tract or neighborhood containing the owner's address |
+| "OWNER_AREA"  | any |  | the name of the tract or neighborhood containing the owner's address |
+| "O_PROPID" | any |  | the parcel ID code of the owner address' parcel |
 
-Each parcel is categorized into exactly one of those 6 classifications. OWNER_AREA is only generated for parcels classified as "ia".  
+Each parcel is categorized into exactly one of those 6 classifications. OWNER_AREA is only generated for parcels classified as "ia", and O_PROPID is only generated for "oo" parcels and "ia" parcels where the match was exact rather than fuzzy. 
 
 The numbers in the summary.csv file can be used to calculate a "match rate" ( (total - xf)/total * 100 ) showing how well the address matching algorithm did.  My initial tests using recent parcel data from Providence, RI had match rates greater than 95%, but the algorithm will undoubtedly need to be tested on older data and data from other cities before being able to achieve those kinds of match rates in a more generalized way.
 
