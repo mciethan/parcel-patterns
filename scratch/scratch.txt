@@ -4,22 +4,26 @@ Specify a parcels shapefile, a corresponding assessor table, the parcel IDs and 
 owner addresses, the tracts shapefile, a tract identifier, and output file names.
 This seems like too much for command line arguments, but could maybe be arguments to a method, 
 and then to do multiple years at a time you'd have some outer file calling this in a loop.
-Maybe I could do a quick tkinter GUI for this - that seems like the best way to handle these cases.
+Maybe I could do a quick tkinter GUI to handle these cases. Only thing I'm not sure how to 
+represent in tkinter would be the output file names for a multiple selection of input files.
+Maybe the GUI should only operate on one file at a time, and I can have some other script that
+iterates through years from the command line. For each input file...
 
-Join the assessor table to the parcels shapefile.  Print out how many of the table 
+1) Join the assessor table to the parcels shapefile.  Print out how many of the table 
 records were joined.
 
-After the parcel join, generate the parcel centroids and spatial join to get each 
+2) After the parcel join, generate the parcel centroids and spatial join to get each 
 parcel's containing tract as an attribute of those centroids.  Print how many of
 the parcel centroid were successfully spatial joined.
 
-Run the centroids table through address matching so it gets classified. Join the 
-classified table back up with the centroids geometries, if necessary.  
+3) Run the centroids table through address matching so it gets classified. Join the 
+classified table back up with the centroids geometries, if necessary. Print summary of
+classification results?
 
-Do the tract joins stuff to count the numbers of parcels per classification in each
-neighborhood and write that to a csv.
+4) Do the tract joins stuff to count the numbers of parcels per classification in each
+neighborhood and write that to a csv. Print confirmation.
 
-Also do the flow edges stuff, counting tract-to-tract ownership patterns.
+5) Also do the flow edges stuff, counting tract-to-tract ownership patterns and writing to csv.
 
 #-------------- Tasks --------------#
 
