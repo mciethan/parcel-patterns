@@ -34,12 +34,15 @@ any new code yet
 2) write code for the first part (joins and centroids), locating appropriate geospatial
 libraries and methods, test for edge cases of original files -> joined centroids
 
+2b) rewrite address matching part using usaddress or other libraries, compare results for pvd and boston
+
 3) link up the joined centroids process with address matching, reconfigure as needed to achieve
 original files -> classified parcel centroids
 
-4) write code for the tract joins stuff to get original files -> tract counts
+4) write code for the tract joins stuff to get original files -> tract counts.
+Link up the flow edges code so that the flow edges are an output as well.
 
-5) link up the flow edges code so that the flow edges are an output as well.
+5) have everything run from a tkinter gui
 
 6) stencil out how the full method could be called multiple times in a loop for various years,
 with some convention for file names
