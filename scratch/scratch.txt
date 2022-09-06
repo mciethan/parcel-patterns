@@ -4,6 +4,7 @@ Specify a parcels shapefile, a corresponding assessor table, the parcel IDs and 
 owner addresses, the tracts shapefile, a tract identifier, and output file names.
 This seems like too much for command line arguments, but could maybe be arguments to a method, 
 and then to do multiple years at a time you'd have some outer file calling this in a loop.
+Maybe I could do a quick tkinter GUI for this - that seems like the best way to handle these cases.
 
 Join the assessor table to the parcels shapefile.  Print out how many of the table 
 records were joined.
