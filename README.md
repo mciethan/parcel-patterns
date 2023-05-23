@@ -4,7 +4,7 @@
 I wrote these scripts for an undergraduate project exploring how parcel data can be used to analyze fine-grained property ownership patterns in urban settings.  I developed a script-based address-matching workflow which categorizes parcels by their owner addresses, and produced examples of how this workflow can allow for the analysis and visualization of owner occupancy rates and landlord locations at fine spatial and temporal scales.  
 
 <p align="center">
-  <img src="https://github.com/CityOfBoston/PolygonQuerier/blob/main/img/pq_demo.gif](https://github.com/mciethan/parcel-patterns/blob/main/flowmaps.png">
+  <img src="https://github.com/mciethan/parcel-patterns/blob/main/flowmaps.png">
 </p>
 
 Read the full project paper here: https://drive.google.com/file/d/1iNafoDogle7K_C7DIjo9AOAS2rO_cbuW/view?usp=sharing
